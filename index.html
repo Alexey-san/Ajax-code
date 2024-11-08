@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:," type="image/x-icon">
+    <title>Форма з підказкою</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            align-items: center;
+            justify-content: center;
+            background-color: #f7f7f7;
+            display: grid;
+            margin: auto;
+            margin-top: 100px;
+        }
+        h1 {
+            display: flex;
+            justify-content: space-around;
+            font-size: 20px;
+        }
+        form {
+            display: grid;
+            justify-content: center;
+            margin: auto;
+        }
+        div {
+            display: grid;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Лабораторна робота №11</h1>
+    </div>
+    <div>
+        <form id="ajaxForm">
+            <label for="name">Ім'я:</label>
+            <input type="text" id="name" name="name"><br><br>
+
+            <label for="email">Електронна пошта:</label>
+            <input type="email" id="email" name="email"><br><br>
+            
+            <label for="phone">Номер телефону:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+
+            <label for="message">Повідомлення:</label>
+            <textarea id="message" name="message"></textarea><br><br>
+
+            <input type="submit" value="Надіслати">
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#ajaxForm").on("submit", function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                let dataForm = $(this).serialize();
+
+                $.ajax({
+                    url: 'D:\University_kurs1\Leading_Page\12\gpt/query.php', // Updated to match the PHP file
+                    method: 'POST',
+                    dataType: 'html',
+                    data: dataForm,
+                    success: function(response) {
+                       console.log(response); // Show the response from PHP
+                    },
+                    error: function() {
+                        alert("Сталася помилка. Спробуйте ще раз.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
